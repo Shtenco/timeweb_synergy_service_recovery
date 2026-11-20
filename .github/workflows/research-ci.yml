@@ -1,0 +1,32 @@
+name: Research integrity
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  syntax-and-source-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Compile Python source without installing research dependencies
+        run: |
+          python - <<'PYCI'
+          import pathlib, py_compile
+          files=[p for p in pathlib.Path('.').rglob('*.py') if not any(x in p.parts for x in ('.venv','.git','__pycache__'))]
+          for p in files: py_compile.compile(str(p), doraise=True)
+          print('Python modules compiled:',len(files))
+          PYCI
+      - name: Verify repository minimum documentation
+        run: |
+          python - <<'PYCI'
+          from pathlib import Path
+          for p in ('README.md','LICENSE','docs/EVIDENCE_SCOPE.md','docs/RUNBOOK.md','docs/PROVENANCE.md','CITATION.cff'):
+              assert Path(p).is_file(),f'Missing file: {p}'
+          print('Documentation checks passed')
+          PYCI
