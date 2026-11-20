@@ -1,0 +1,16 @@
+{
+  "repository": "timeweb_synergy_service_recovery",
+  "public_source_files": 9,
+  "excluded_offline_only": [],
+  "sha256": {
+    ".gitignore": "d9d3d414f6f84c0ef3d8b09d59f49f6c2c173fab18219c9fa262db2383820cf5",
+    "README.md": "11e06eeb9275f3869f6c31883fb2bf02b8bc202dc488aa269855d2589240d0a2",
+    "prototypes/__init__.py": "7ea3e33621d03c4e3e2271d2e93e55721d45d99472f589fa698ec105fcddfdb6",
+    "prototypes/__main__.py": "c63aff76bcd5a382a42c8d13eb3c2f5fb2c564b451bdfd20819631c3725055d6",
+    "prototypes/runner.py": "3e1a59a8d2260be864749b4aa583961569fdcbee7b161f1025ae3725a841306f",
+    "prototypes/scenarios/__init__.py": "60d32f11ef7875e4b24eedf3a631281803e0295a8206e39819cf2cae243632f8",
+    "prototypes/scenarios/article11.py": "d31ce6fc3c53322066af0ce01f72f04a103fea1e86b7790ac52cf979cdb999c6",
+    "prototypes/tests/test_articles_09_12.py": "0a158322bc4be3f7eb5ef6d48ec789443335b69e147ef81f7c108ecf329a11c5",
+    "requirements.txt": "12b84930f4edd3f3d1fde62f07d61110a07a88bdfb5acc5338f7fda8a61b8247"
+  }
+}
