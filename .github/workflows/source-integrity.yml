@@ -1,0 +1,35 @@
+name: Source integrity and Python syntax
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  source-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Verify transferred source SHA256
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          from pathlib import Path
+          manifest = json.loads(Path("PUBLIC_SOURCE_MANIFEST.json").read_text(encoding="utf-8"))
+          for path, expected in manifest["sha256"].items():
+              actual = hashlib.sha256(Path(path).read_bytes()).hexdigest()
+              assert actual == expected, f"Mismatch: {path}"
+          print("Verified", len(manifest["sha256"]), "source files")
+          PY
+      - name: Check Python source syntax
+        run: |
+          for path in prototypes experiments evidence qa; do
+            if [ -d "$path" ]; then python -m compileall -q "$path"; fi
+          done
+      - name: Check scenario CLI (when available)
+        run: |
+          if [ -d "prototypes" ]; then python -m prototypes list; fi
